@@ -114,12 +114,13 @@ target-defense-marl/
 │   ├── basic_training.py     # Simple training demonstration
 │   ├── custom_configs.py     # Various configuration examples
 │   └── visualization_demo.py # Visualization features demo
-├── visualizations/            # Example training runs with full results
-│   ├── run_20250811_172520/ # 5 spawn positions, 1 attacker
-│   ├── run_20250811_195030/ # Complete long training run
-│   └── run_20250811_164559/ # Standard 3v1 configuration
-│       ├── trajectories/     # GIFs and PNGs of agent movements
-│       └── metrics/          # Training progress plots
+├── sample_results/            # Curated results from successful training runs
+│   ├── trajectory_ep2000.gif/png    # Mid-training trajectories
+│   ├── trajectory_ep3500.gif/png    # Late-training trajectories
+│   ├── trajectory_ep3750.gif/png    # Near-final trajectories
+│   ├── trajectory_ep5000.gif/png    # Final trained behaviors
+│   ├── 324_trajectory_ep2000.gif/png # 3v2v4 configuration example
+│   └── training_metrics_ep3750.png  # Training progress metrics
 └── docs/                      # Documentation
     └── paper/                # LaTeX files for paper
         ├── target_defense_paper.tex
