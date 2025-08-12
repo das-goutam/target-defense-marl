@@ -136,39 +136,6 @@ target-defense-marl/
 | `--log-interval` | 50 | Episodes between logging metrics |
 
 
-## Research Paper
-
-For detailed algorithm description and experimental results, see:
-- [Paper PDF](docs/paper/target_defense_paper.pdf) (if available)
-- [LaTeX Source](docs/paper/target_defense_paper.tex)
-
-### Generating Paper Results
-
-```bash
-python generate_paper_results.py
-```
-
-This will run all experimental configurations and generate:
-- Comparison tables (LaTeX format)
-- Learning curves
-- Performance bar charts
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit pull requests or open issues.
-
-### Development Setup
-
-```bash
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Run tests
-pytest tests/
-
-# Format code
-black .
-```
 
 ## Citation
 
