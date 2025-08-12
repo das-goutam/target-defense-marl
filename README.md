@@ -110,10 +110,6 @@ target-defense-marl/
 ├── requirements.txt            # Python dependencies
 ├── LICENSE                    # MIT license
 ├── README.md                  # This file
-├── examples/                  # Example scripts
-│   ├── basic_training.py     # Simple training demonstration
-│   ├── custom_configs.py     # Various configuration examples
-│   └── visualization_demo.py # Visualization features demo
 ├── sample_results/            # Curated results from successful training runs
 │   ├── trajectory_ep2000.gif/png    # Mid-training trajectories
 │   ├── trajectory_ep3500.gif/png    # Late-training trajectories
