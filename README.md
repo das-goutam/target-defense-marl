@@ -21,7 +21,7 @@ A multi-agent reinforcement learning environment for the target defense problem,
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/target-defense-marl.git
+git clone https://github.com/das-goutam/target-defense-marl.git
 cd target-defense-marl
 
 # Install dependencies
@@ -214,9 +214,9 @@ If you use this code in your research, please cite:
 ```bibtex
 @software{target_defense_marl,
   title={Target Defense Multi-Agent Reinforcement Learning},
-  author={Your Name},
+  author={Goutam Das},
   year={2024},
-  url={https://github.com/yourusername/target-defense-marl}
+  url={https://github.com/das-goutam/target-defense-marl}
 }
 ```
 
@@ -232,4 +232,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-For questions or collaborations, please open an issue or contact [your email].
+For questions or collaborations, please open an issue on the [GitHub repository](https://github.com/das-goutam/target-defense-marl/issues).
