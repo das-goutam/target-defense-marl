@@ -30,19 +30,12 @@ pip install -r requirements.txt
 
 ## Quick Start
 
-### Basic Training
-
-Train 3 defenders against 1 attacker with 3 spawn positions:
-
-```bash
-python rl_train_target_defense.py
-```
-
 ### Training with Visualization
 
-Generate GIFs and performance plots during training:
+Train agents and generate GIFs and performance plots:
 
 ```bash
+# Basic training: 3 defenders vs 1 attacker
 python train_with_visualization.py --episodes 1000 --defenders 3 --attackers 1 --spawn-positions 3 --lr 0.001
 ```
 
@@ -104,8 +97,7 @@ ASR = (Total attackers sensed) / (Total attackers spawned)
 ```
 target-defense-marl/
 ├── vmas_target_defense.py      # Core VMAS environment implementation
-├── rl_train_target_defense.py  # PPO training with direct VMAS integration
-├── train_with_visualization.py # Extended training with visualization
+├── train_with_visualization.py # PPO training with comprehensive visualization
 ├── apollonius_solver.py        # Apollonius circle solver for rewards
 ├── requirements.txt            # Python dependencies
 ├── LICENSE                    # MIT license
@@ -118,10 +110,9 @@ target-defense-marl/
 │   ├── 324_trajectory_ep2000.gif/png # 3v2v4 configuration example
 │   └── training_metrics_ep3750.png  # Training progress metrics
 └── docs/                      # Documentation
-    └── paper/                # LaTeX files for paper
-        ├── target_defense_paper.tex
-        ├── references.bib
-        └── paper_generation_README.md
+    └── paper/                # LaTeX files for academic paper
+        ├── target_defense_paper.tex  # Main paper document
+        └── references.bib            # Bibliography
 ```
 
 **During Training**: The following directories will be created automatically:
