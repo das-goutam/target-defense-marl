@@ -114,12 +114,12 @@ target-defense-marl/
 │   ├── basic_training.py     # Simple training demonstration
 │   ├── custom_configs.py     # Various configuration examples
 │   └── visualization_demo.py # Visualization features demo
-├── sample_results/            # Example outputs from training
-│   ├── trajectories/         # Sample trajectory visualizations
-│   │   ├── sample_trajectory.gif
-│   │   └── sample_trajectory.png
-│   └── metrics/              # Sample training metrics
-│       └── sample_training_metrics.png
+├── visualizations/            # Example training runs with full results
+│   ├── run_20250811_172520/ # 5 spawn positions, 1 attacker
+│   ├── run_20250811_195030/ # Complete long training run
+│   └── run_20250811_164559/ # Standard 3v1 configuration
+│       ├── trajectories/     # GIFs and PNGs of agent movements
+│       └── metrics/          # Training progress plots
 └── docs/                      # Documentation
     └── paper/                # LaTeX files for paper
         ├── target_defense_paper.tex

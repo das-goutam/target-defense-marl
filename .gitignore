@@ -42,7 +42,7 @@ checkpoints/
 .DS_Store
 
 # Training outputs
-visualizations/
+# visualizations/  # Commented out to include example visualizations
 results/
 logs/
 runs/
