@@ -26,14 +26,15 @@ class TrainingConfig:
     # Environment
     num_defenders: int = 3
     num_attackers: int = 1
+    num_spawn_positions: int = 3
     sensing_radius: float = 0.15
     speed_ratio: float = 0.7
     max_steps: int = 200
     
     # Training
     num_envs: int = 32
-    num_episodes: int = 1000
-    learning_rate: float = 3e-4
+    num_episodes: int = 3000
+    learning_rate: float = 0.0007
     gamma: float = 0.99
     device: str = "cpu"
     
@@ -43,8 +44,8 @@ class TrainingConfig:
     num_layers: int = 3
     
     # Logging
-    log_interval: int = 10
-    save_interval: int = 100
+    log_interval: int = 100
+    save_interval: int = 250
     save_path: str = "./checkpoints"
 
 
@@ -113,8 +114,8 @@ class TargetDefenseRLTrainer:
         
         # Training statistics
         self.episode_rewards = []
-        self.sensing_rates = []
-        self.target_rates = []
+        self.interception_rates = []  # Complete interceptions (all attackers sensed)
+        self.sensing_rates = []  # Average sensing rate
     
     def create_environment(self):
         """Create VMAS environment."""
@@ -125,10 +126,12 @@ class TargetDefenseRLTrainer:
             continuous_actions=True,
             num_defenders=self.config.num_defenders,
             num_attackers=self.config.num_attackers,
+            num_spawn_positions=self.config.num_spawn_positions,
             sensing_radius=self.config.sensing_radius,
             speed_ratio=self.config.speed_ratio,
             max_steps=self.config.max_steps,
-            fixed_attacker_policy=True
+            fixed_attacker_policy=True,
+            randomize_attacker_x=True  # Enable random spawning
         )
     
     def get_actions(self, observations: List[torch.Tensor], explore: bool = True) -> List[torch.Tensor]:
@@ -207,17 +210,23 @@ class TargetDefenseRLTrainer:
         
         avg_reward = np.mean(defender_total_rewards) if defender_total_rewards else 0
         
-        # Get termination statistics
+        # Get termination statistics - count COMPLETE interceptions
+        interception_rate = 0  # Percentage of episodes with ALL attackers intercepted
+        
+        # Count complete interceptions (all attackers sensed in an environment)
+        if hasattr(self.env.scenario, 'attacker_sensed'):
+            # For each environment, check if ALL attackers were sensed
+            all_sensed_per_env = self.env.scenario.attacker_sensed.all(dim=1)  # True if all attackers sensed
+            complete_interceptions = all_sensed_per_env.float().sum().item()
+            interception_rate = complete_interceptions / self.config.num_envs if self.config.num_envs > 0 else 0
+        
+        # Also track average sensing rate for backward compatibility  
         sensing_rate = 0
-        target_rate = 0
+        if hasattr(self.env.scenario, 'attacker_sensed'):
+            # Average across all attackers and environments
+            sensing_rate = self.env.scenario.attacker_sensed.float().mean().item()
         
-        if hasattr(self.env.scenario, 'sensing_occurred'):
-            sensing_rate = self.env.scenario.sensing_occurred.float().mean().item()
-        
-        if hasattr(self.env.scenario, 'target_reached'):
-            target_rate = self.env.scenario.target_reached.float().mean().item()
-        
-        return avg_reward, sensing_rate, target_rate
+        return avg_reward, interception_rate, sensing_rate
     
     def update_policies(self, trajectory: Dict):
         """Update policies using collected trajectory (simplified PPO-style update)."""
@@ -282,23 +291,23 @@ class TargetDefenseRLTrainer:
         
         for episode in range(self.config.num_episodes):
             # Train one episode
-            avg_reward, sensing_rate, target_rate = self.train_episode()
+            avg_reward, interception_rate, sensing_rate = self.train_episode()
             
             # Store statistics
             self.episode_rewards.append(avg_reward)
+            self.interception_rates.append(interception_rate)
             self.sensing_rates.append(sensing_rate)
-            self.target_rates.append(target_rate)
             
             # Logging
             if (episode + 1) % self.config.log_interval == 0:
                 recent_rewards = np.mean(self.episode_rewards[-self.config.log_interval:])
+                recent_interception = np.mean(self.interception_rates[-self.config.log_interval:])
                 recent_sensing = np.mean(self.sensing_rates[-self.config.log_interval:])
-                recent_target = np.mean(self.target_rates[-self.config.log_interval:])
                 
                 print(f"Episode {episode+1}/{self.config.num_episodes}:")
                 print(f"  Avg Reward: {recent_rewards:.3f}")
-                print(f"  Sensing Rate: {recent_sensing:.2%}")
-                print(f"  Target Rate: {recent_target:.2%}")
+                print(f"  Complete Interception Rate: {recent_interception:.2%}")
+                print(f"  Average Sensing Rate: {recent_sensing:.2%}")
             
             # Save checkpoints
             if (episode + 1) % self.config.save_interval == 0:
@@ -316,8 +325,8 @@ class TargetDefenseRLTrainer:
         
         print(f"\nFinal Statistics (last {window} episodes):")
         print(f"  Average Reward: {np.mean(self.episode_rewards[-window:]):.3f}")
-        print(f"  Sensing Success Rate: {np.mean(self.sensing_rates[-window:]):.2%}")
-        print(f"  Target Reached Rate: {np.mean(self.target_rates[-window:]):.2%}")
+        print(f"  Complete Interception Rate: {np.mean(self.interception_rates[-window:]):.2%}")
+        print(f"  Average Sensing Rate: {np.mean(self.sensing_rates[-window:]):.2%}")
         
         # Performance assessment
         final_sensing = np.mean(self.sensing_rates[-window:])
@@ -356,8 +365,8 @@ class TargetDefenseRLTrainer:
                           for name, opt in self.optimizers.items()},
             'statistics': {
                 'rewards': self.episode_rewards,
-                'sensing_rates': self.sensing_rates,
-                'target_rates': self.target_rates
+                'interception_rates': self.interception_rates,
+                'sensing_rates': self.sensing_rates
             }
         }
         
@@ -378,8 +387,8 @@ class TargetDefenseRLTrainer:
                 self.optimizers[name].load_state_dict(state_dict)
         
         self.episode_rewards = checkpoint['statistics']['rewards']
+        self.interception_rates = checkpoint['statistics'].get('interception_rates', [])
         self.sensing_rates = checkpoint['statistics']['sensing_rates']
-        self.target_rates = checkpoint['statistics']['target_rates']
         
         print(f"✓ Checkpoint loaded from episode {checkpoint['episode']}")
     
@@ -388,8 +397,8 @@ class TargetDefenseRLTrainer:
         print("\nEvaluating...")
         
         eval_rewards = []
+        eval_interception = []
         eval_sensing = []
-        eval_target = []
         
         for _ in range(num_episodes):
             obs = self.env.reset()
@@ -414,22 +423,27 @@ class TargetDefenseRLTrainer:
             
             eval_rewards.append(episode_reward / len(self.defenders))
             
-            if hasattr(self.env.scenario, 'sensing_occurred'):
-                eval_sensing.append(self.env.scenario.sensing_occurred.float().mean().item())
-            
-            if hasattr(self.env.scenario, 'target_reached'):
-                eval_target.append(self.env.scenario.target_reached.float().mean().item())
+            # Track complete interceptions and average sensing
+            if hasattr(self.env.scenario, 'attacker_sensed'):
+                # Complete interceptions (all attackers sensed)
+                all_sensed_per_env = self.env.scenario.attacker_sensed.all(dim=1)
+                complete_interceptions = all_sensed_per_env.float().mean().item()
+                eval_interception.append(complete_interceptions)
+                
+                # Average sensing rate
+                avg_sensing = self.env.scenario.attacker_sensed.float().mean().item()
+                eval_sensing.append(avg_sensing)
         
         results = {
             'avg_reward': np.mean(eval_rewards),
-            'sensing_rate': np.mean(eval_sensing) if eval_sensing else 0,
-            'target_rate': np.mean(eval_target) if eval_target else 0
+            'interception_rate': np.mean(eval_interception) if eval_interception else 0,
+            'sensing_rate': np.mean(eval_sensing) if eval_sensing else 0
         }
         
         print(f"Evaluation Results ({num_episodes} episodes):")
         print(f"  Average Reward: {results['avg_reward']:.3f}")
-        print(f"  Sensing Rate: {results['sensing_rate']:.2%}")
-        print(f"  Target Rate: {results['target_rate']:.2%}")
+        print(f"  Complete Interception: {results['interception_rate']:.2%}")
+        print(f"  Avg Sensing Rate: {results['sensing_rate']:.2%}")
         
         return results
 
