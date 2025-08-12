@@ -106,29 +106,24 @@ target-defense-marl/
 ├── vmas_target_defense.py      # Core VMAS environment implementation
 ├── rl_train_target_defense.py  # PPO training with direct VMAS integration
 ├── train_with_visualization.py # Extended training with visualization
+├── apollonius_solver.py        # Apollonius circle solver for rewards
 ├── generate_paper_results.py   # Generate experimental results for paper
 ├── requirements.txt            # Python dependencies
+├── LICENSE                    # MIT license
 ├── README.md                  # This file
-├── examples/                  # Example scripts and notebooks
-│   ├── basic_training.py
-│   ├── custom_configs.py
-│   └── visualization_demo.py
-├── configs/                   # Configuration files
-│   ├── default.yaml
-│   ├── multi_attacker.yaml
-│   └── ablation_study.yaml
-├── results/                   # Training results and logs
-│   ├── models/               # Saved model checkpoints
-│   ├── visualizations/       # Generated GIFs and plots
-│   └── metrics/              # Training metrics CSV files
-├── docs/                      # Additional documentation
-│   ├── paper/               # LaTeX files for paper
-│   │   ├── target_defense_paper.tex
-│   │   └── references.bib
-│   └── api_reference.md
-└── tests/                     # Unit tests
-    ├── test_environment.py
-    └── test_training.py
+├── examples/                  # Example scripts
+│   ├── basic_training.py     # Simple training demonstration
+│   ├── custom_configs.py     # Various configuration examples
+│   └── visualization_demo.py # Visualization features demo
+├── docs/                      # Documentation
+│   └── paper/                # LaTeX files for paper
+│       ├── target_defense_paper.tex
+│       ├── references.bib
+│       └── paper_generation_README.md
+└── [Generated during training]
+    ├── visualizations/        # Training visualizations (GIFs, PNGs)
+    ├── models/               # Saved model checkpoints
+    └── results/              # Training logs and metrics
 ```
 
 ## Configuration Options
