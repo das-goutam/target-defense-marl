@@ -35,8 +35,11 @@ pip install -r requirements.txt
 Train agents and generate GIFs and performance plots:
 
 ```bash
-# Basic training: 3 defenders vs 1 attacker
-python train_with_visualization.py --episodes 1000 --defenders 3 --attackers 1 --spawn-positions 3 --lr 0.001
+# Basic training with default parameters (3 defenders vs 1 attacker, 3000 episodes)
+python train_with_visualization.py
+
+# Quick test run with fewer episodes
+python train_with_visualization.py --episodes 500 --save-interval 50
 ```
 
 ### Advanced Configuration
@@ -124,16 +127,16 @@ target-defense-marl/
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `--episodes` | 1000 | Number of training episodes |
+| `--episodes` | 3000 | Number of training episodes |
 | `--defenders` | 3 | Number of defender agents |
 | `--attackers` | 1 | Number of attacker agents |
 | `--spawn-positions` | 3 | Number of possible attacker spawn positions |
 | `--sensing-radius` | 0.15 | Defender sensing radius |
 | `--speed-ratio` | 0.7 | Attacker speed relative to defenders |
-| `--lr` | 0.001 | Learning rate for PPO |
+| `--lr` | 0.0007 | Learning rate for PPO |
 | `--envs` | 32 | Number of parallel environments |
 | `--save-interval` | 250 | Episodes between saving visualizations |
-| `--log-interval` | 50 | Episodes between logging metrics |
+| `--log-interval` | 100 | Episodes between logging metrics |
 
 
 

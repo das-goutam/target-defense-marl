@@ -697,7 +697,7 @@ Examples:
     )
     
     # Training arguments
-    parser.add_argument("--episodes", type=int, default=500,
+    parser.add_argument("--episodes", type=int, default=3000,
                        help="Number of training episodes")
     parser.add_argument("--envs", type=int, default=32,
                        help="Number of parallel environments")
@@ -717,7 +717,7 @@ Examples:
                        help="Speed ratio (attacker/defender)")
     
     # Network arguments
-    parser.add_argument("--lr", type=float, default=0.001,
+    parser.add_argument("--lr", type=float, default=0.0007,
                        help="Learning rate")
     parser.add_argument("--hidden-size", type=int, default=256,
                        help="Hidden layer size")
@@ -727,9 +727,9 @@ Examples:
     # Visualization arguments
     parser.add_argument("--save-dir", type=str, default="./visualizations",
                        help="Directory to save visualizations")
-    parser.add_argument("--log-interval", type=int, default=10,
+    parser.add_argument("--log-interval", type=int, default=100,
                        help="Episodes between logging")
-    parser.add_argument("--save-interval", type=int, default=100,
+    parser.add_argument("--save-interval", type=int, default=250,
                        help="Episodes between checkpoint saves")
     
     args = parser.parse_args()
