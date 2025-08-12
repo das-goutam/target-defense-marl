@@ -135,32 +135,6 @@ target-defense-marl/
 | `--save-interval` | 250 | Episodes between saving visualizations |
 | `--log-interval` | 50 | Episodes between logging metrics |
 
-## Example Results
-
-### Training Performance
-Typical performance with 3 defenders vs 1 attacker:
-- **100% CIR** achieved after ~500 episodes
-- **Average reward**: 1.0-1.5 per defender
-
-### Challenging Configurations
-- **2v3 (outnumbered)**: ~45% CIR, demonstrates coordination limits
-- **3v3 (balanced)**: ~97% CIR with proper training
-- **4v3 (advantage)**: ~99% CIR, faster convergence
-
-## Visualization Examples
-
-### Trajectory Animation
-The system generates animated GIFs showing:
-- Agent movements over time
-- Sensing boundaries (blue circles)
-- Spawn positions (red triangles)
-- Interception events (yellow stars)
-
-### Training Metrics
-Automatically generated plots include:
-- Complete Interception Rate over time
-- Average rewards progression
-- Sensing rate statistics
 
 ## Research Paper
 
