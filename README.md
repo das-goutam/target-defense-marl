@@ -107,7 +107,6 @@ target-defense-marl/
 ├── rl_train_target_defense.py  # PPO training with direct VMAS integration
 ├── train_with_visualization.py # Extended training with visualization
 ├── apollonius_solver.py        # Apollonius circle solver for rewards
-├── generate_paper_results.py   # Generate experimental results for paper
 ├── requirements.txt            # Python dependencies
 ├── LICENSE                    # MIT license
 ├── README.md                  # This file
@@ -115,16 +114,23 @@ target-defense-marl/
 │   ├── basic_training.py     # Simple training demonstration
 │   ├── custom_configs.py     # Various configuration examples
 │   └── visualization_demo.py # Visualization features demo
-├── docs/                      # Documentation
-│   └── paper/                # LaTeX files for paper
-│       ├── target_defense_paper.tex
-│       ├── references.bib
-│       └── paper_generation_README.md
-└── [Generated during training]
-    ├── visualizations/        # Training visualizations (GIFs, PNGs)
-    ├── models/               # Saved model checkpoints
-    └── results/              # Training logs and metrics
+├── sample_results/            # Example outputs from training
+│   ├── trajectories/         # Sample trajectory visualizations
+│   │   ├── sample_trajectory.gif
+│   │   └── sample_trajectory.png
+│   └── metrics/              # Sample training metrics
+│       └── sample_training_metrics.png
+└── docs/                      # Documentation
+    └── paper/                # LaTeX files for paper
+        ├── target_defense_paper.tex
+        ├── references.bib
+        └── paper_generation_README.md
 ```
+
+**During Training**: The following directories will be created automatically:
+- `visualizations/` - Contains GIFs and PNGs from each training run
+- `models/` - Saved model checkpoints
+- `results/` - Training logs and metrics
 
 ## Configuration Options
 
