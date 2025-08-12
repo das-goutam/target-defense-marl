@@ -167,3 +167,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 For questions or collaborations, please open an issue on the [GitHub repository](https://github.com/das-goutam/target-defense-marl/issues).
+
+## Contributors
+
+- Goutam Das
