@@ -100,7 +100,8 @@ ASR = (Total attackers sensed) / (Total attackers spawned)
 ```
 target-defense-marl/
 ├── vmas_target_defense.py      # Core VMAS environment implementation
-├── train_with_visualization.py # PPO training with comprehensive visualization
+├── rl_train_target_defense.py  # Base PPO training implementation
+├── train_with_visualization.py # Extended training with visualization
 ├── apollonius_solver.py        # Apollonius circle solver for rewards
 ├── requirements.txt            # Python dependencies
 ├── LICENSE                    # MIT license
