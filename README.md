@@ -102,13 +102,13 @@ target-defense-marl/
 ├── requirements.txt            # Python dependencies
 ├── LICENSE                    # MIT license
 ├── README.md                  # This file
-├── sample_results/            # Curated results from successful training runs
-│   ├── trajectory_ep2000.gif/png    # Mid-training trajectories
-│   ├── trajectory_ep3500.gif/png    # Late-training trajectories
-│   ├── trajectory_ep3750.gif/png    # Near-final trajectories
-│   ├── trajectory_ep5000.gif/png    # Final trained behaviors
-│   ├── 324_trajectory_ep2000.gif/png # 3v2v4 configuration example
-│   └── training_metrics_ep3750.png  # Training progress metrics
+├── sample_results/            # Sample results for different training configurations
+│   ├── trajectory_ep2000.gif/png
+│   ├── trajectory_ep3500.gif/png
+│   ├── trajectory_ep3750.gif/png
+│   ├── trajectory_ep5000.gif/png
+│   ├── 324_trajectory_ep2000.gif/png
+│   └── training_metrics_ep3750.png
 └── docs/                      # Documentation
     └── paper/                # LaTeX files for academic paper
         ├── target_defense_paper.tex  # Main paper document
