@@ -1,0 +1,116 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyTorch
+*.pth
+*.pt
+checkpoint/
+checkpoints/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Training outputs
+visualizations/
+results/
+logs/
+runs/
+wandb/
+tensorboard/
+*.log
+
+# Temporary files
+*.tmp
+test_*.py
+temp_*.py
+test_viz/
+test_5spawn/
+
+# Paper generation
+paper_results.json
+paper_figures/
+paper_tables.tex
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+
+# Archive folder
+archive/
+
+# Environment
+.env
+.envrc
+
+# Data files
+*.csv
+*.xlsx
+*.json
+!requirements*.json
+
+# Media files (keep important ones in repo)
+*.mp4
+*.avi
+*.mov
+# Keep important GIFs and PNGs
+# *.gif
+# *.png
+
+# Model checkpoints (keep specific ones if needed)
+models/
+saved_models/
+*.ckpt
+
+# OS
+Thumbs.db
+.DS_Store
+.directory
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
